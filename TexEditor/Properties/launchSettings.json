@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TexEditor": {
+      "commandName": "Project",
+      "commandLineArgs": "InputFilePath=\"C:\\Users\\Gaaammmler\\Desktop\\cr.tex\" OutputPath=\"C:\\Users\\Gaaammmler\\Desktop\\cr.texjson\""
+    }
+  }
+}

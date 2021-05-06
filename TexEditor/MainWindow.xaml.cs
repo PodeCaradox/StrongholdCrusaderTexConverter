@@ -31,10 +31,10 @@ namespace TexEditor
         private void ConvertBack_Click(object sender, RoutedEventArgs e)
         {
 
-            var filePath = TxbFilePath.Text;
+            var filePath = GetPath(".texjson", "Converted Tex Files (*.texjson)|*.texjson");
             try
             {
-                LibTex.Serialize(filePath);
+                LibTex.Serialize(filePath, filePath.Replace(".texjson", ".tex"));
             }
             catch (Exception er)
             {
@@ -45,7 +45,7 @@ namespace TexEditor
         private void BtnFileSelect_Click(object sender, RoutedEventArgs e)
         {
 
-            var filePath = TxbFilePath.Text;
+            var filePath = GetPath(".tex", "Firefly Tex Files (*.tex)|*.tex");
 
             if (!File.Exists(filePath))
             {
@@ -53,26 +53,21 @@ namespace TexEditor
                 return;
             }
 
-            var fileDir = System.IO.Path.GetDirectoryName(filePath);
-            var fileText = System.IO.Path.GetFileNameWithoutExtension(filePath) + ".txt";
-            var saveTextPath = System.IO.Path.Combine(fileDir, fileText);
-
-            var texSections = LibTex.Deserialize(filePath);
-            using var writer = new StreamWriter(saveTextPath, false, Encoding.UTF8);
-            writer.Write(texSections.ConvertToText());
+            LibTex.Deserialize(filePath, filePath.Replace(".tex",".texjson"));
+       
         }
 
-        private void 
 
-        private void TxbFilePath_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+
+        private String GetPath(String defaulttext, String filter)
         {
             // Create OpenFileDialog 
             var dlg = new Microsoft.Win32.OpenFileDialog
             {
 
                 // Set filter for file extension and default file extension 
-                DefaultExt = ".tex",
-                Filter = "Firefly Tex Files (*.tex)|*.tex"
+                DefaultExt = defaulttext,
+                Filter = filter
             };
 
             // Display OpenFileDialog by calling ShowDialog method 
@@ -81,10 +76,10 @@ namespace TexEditor
             // Get the selected file name and display in a TextBox 
             if (result == null || result != true)
             {
-                return;
+                return null;
             }
 
-            TxbFilePath.Text = dlg.FileName;
+            return dlg.FileName;
         }
     }
 }

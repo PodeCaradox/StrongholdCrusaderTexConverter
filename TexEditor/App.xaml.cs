@@ -29,9 +29,17 @@ namespace TexEditor
             }
             else
             {
-                dictionary["InputFilePath"];
-                dictionary["OutputPath"];
-                dictionary["FileType"];
+                if (dictionary["InputFilePath"].EndsWith(".tex"))
+                {
+                    LibTex.Deserialize(dictionary["InputFilePath"], dictionary["OutputPath"]);
+                }
+                else
+                {
+                    LibTex.Serialize(dictionary["InputFilePath"], dictionary["OutputPath"]);
+                }
+
+                System.Windows.Application.Current.Shutdown();
+
             }
             
         }

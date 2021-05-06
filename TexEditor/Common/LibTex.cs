@@ -12,8 +12,9 @@ namespace TexEditor
 {
     public static class LibTex
     {
-        public static TexSection[] Deserialize(string filePath, int maxSections = 259)
+        public static void Deserialize(string filePath,string output)
         {
+            int maxSections = 259;
             if (!File.Exists(filePath))
             {
                 throw new FileNotFoundException(filePath);
@@ -78,12 +79,17 @@ namespace TexEditor
                 }
             }
 
-            return result;
+        
+
+            using var writer = new StreamWriter(output, false, Encoding.UTF8);
+            writer.Write(result.ConvertToText());
         }
 
-        public static void Serialize(string filePath, int maxSections= 259)
+        public static void Serialize(string filePath,string output)
         {
-            String file = File.ReadAllText(filePath.Replace(".tex", ".txt"));
+
+            int maxSections = 259;
+            String file = File.ReadAllText(filePath);
 
      
             var texSection = JsonConvert.DeserializeObject<TexSection[]>(file);
@@ -121,7 +127,7 @@ namespace TexEditor
             allData.AddRange(offsetsinByte);
             allData.AddRange(data);
 
-            File.WriteAllBytes(filePath, allData.ToArray());
+            File.WriteAllBytes(output, allData.ToArray());
         }
 
         public static string ConvertToText(this TexSection[] texSections)

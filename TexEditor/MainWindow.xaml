@@ -16,15 +16,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Name="TxbFilePath" Margin="8" Text="" TextWrapping="Wrap" IsReadOnly="True" MouseDoubleClick="TxbFilePath_MouseDoubleClick"/>
-            <Button Grid.Row="1" Margin="15 5 15 5" Content="Convert" Click="BtnFileSelect_Click"/>
-            <Button Grid.Row="2" Margin="15 5 15 5" Content="Convert Back" Click="ConvertBack_Click"/>
-            <TextBlock Grid.Row="3" TextWrapping="WrapWithOverflow" Margin="5,5,5,5">
-               Double click  input to select a tex file and click "Convert" the text file will be generated at same folder.
-            </TextBlock>
+            <Button Grid.Row="0" Margin="15 5 15 5" Content="Convert" Click="BtnFileSelect_Click"/>
+            <Button Grid.Row="1" Margin="15 5 15 5" Content="Convert Back" Click="ConvertBack_Click"/>
         </Grid>
     </Grid>
 </Window>
